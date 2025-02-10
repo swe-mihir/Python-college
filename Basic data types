@@ -1,0 +1,22 @@
+#To explore basic data types of python like string, list, dictionaries, tuple and set
+
+car = "Audi"
+Volkswagen = ["Bugati", "Bently", "Porsce", 16]
+origin = {12:"Ferrari", 6:"BMW", 8:"Aston Martin"}
+podium = (1, 2, 3)
+premium = {"Rolls Royce", "Maybach", "Limousine"}
+a = 1000
+print("Brand: " + car, a)
+
+print("List: ", Volkswagen)
+print(Volkswagen[1])
+
+print("Dictionary: ", origin)
+print("Italy: " + origin[12])
+
+print("Tuple: ", podium)
+print(podium[1])
+
+print("Set: ", premium)
+print(Volkswagen[3], type(Volkswagen[3]))
+print(Volkswagen[3], type(str(Volkswagen[3])))
