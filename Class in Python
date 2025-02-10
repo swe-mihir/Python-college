@@ -1,0 +1,58 @@
+global records
+records = []
+
+class Student:
+
+	def __init__(self, name, roll_no, grade):
+            self.name = name
+            self.roll_no = roll_no
+            self.grade = grade
+
+	def add_student(self, name, roll_no, grade):
+		record = {"Name": name, "Roll No": roll_no, "Grade": grade}
+		records.append(record)
+	def remove_student(self, roll_no):
+		for std in records:
+			if std["Roll No"] == roll_no:
+				records.remove(std)
+	def upgrade_grade(self, roll_no, new_grade):
+			for std in records:
+				if std["Roll No"] == roll_no:
+					std["Grade"] = new_grade
+
+	def display(self):
+		print("Roll No\tName\tGrade")
+		for data in records:
+			print(f"{data['Roll No']}\t\t{data['Name']}\t\t{data['Grade']}")
+		print("\n")
+
+
+s = Student(None, None, None)
+n = int(input("Enter number of students: "))
+for i in range(0, n):
+	print(f"----Student{i + 1}----")
+	roll_number = int(input("Roll number: "))
+	student_name = str(input("Name: "))
+	student_grade = str(input("Grade: "))
+
+	s.add_student(student_name, roll_number, student_grade)
+s.display()
+print("1. Update\n2. Remove\n3. Display\n4. Exit")
+choice = 0
+while choice != 4:
+	choice = int(input("Enter choice:"))
+	if choice == 1:
+		print("----Update----")
+		roll = int(input("Enter Student roll number: "))
+		new_grade = str(input("Enter new grade: "))
+		s.upgrade_grade(roll, new_grade)
+	elif choice == 2:
+		print("----Remove----")
+		roll = int(input("Enter the roll number: "))
+		s.remove_student(roll)
+	elif choice == 3:
+		s.display()
+	elif choice == 4:
+		pass
+	else:
+		print("Invalid Choice")
