@@ -1,0 +1,42 @@
+# Adj_list = {
+#     'A':{'B': 3, 'C': 5},
+#     'B':{'D': 7},
+#     'C':{'D': 9},
+#     'D':{}
+# }
+distances = []
+previous = []
+def input_graph():
+    graph = {}
+    nodes = int(input("Enter the number of nodes: "))
+    for _ in range(nodes):
+        node = input("Enter the node name: ")
+        graph[node] = {}
+       
+        neighbours = int(input(f"Enter the number of neighbors for node {node}: "))
+        for _ in range(neighbours):
+            neighbor, weight = input("Enter neighbor and weight (neighbor weight): ").split()
+            graph[node][neighbor] = int(weight)
+   
+    return graph
+
+def Bellman_Ford(graph, source):
+
+    distances = {vertex: float('inf')for vertex in graph}
+    previous = {vertex: float('inf')for vertex in graph}
+    distances[source] = 0
+    print(distances)
+    for vertex in graph:
+        for next_vertex, distance in graph[vertex].items():
+            temp_distance = distances[vertex] + distance
+            if temp_distance < distances[next_vertex]:
+                distances[next_vertex] = temp_distance
+                previous[next_vertex] = vertex
+            print(vertex, next_vertex, distance)
+    for next_vertex, distance in graph[vertex].items():
+        if distances[vertex] + distance < distances[next_vertex]:
+            print("Graph contains a negative-weight cycle")
+    print(previous)
+Adj_list = input_graph()
+source = str(input("Enter the source node: "))
+Bellman_Ford(Adj_list, source)
