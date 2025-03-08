@@ -1,0 +1,21 @@
+array = list(map(int, input("Enter the list:").split()))
+elemnt = int(input("Enter the number: "))
+# print(array)
+
+def binary_search(arr, item):
+    high = len(arr)
+    low = 0
+    # print(high, low)
+    while high != low:
+        # print(high, low)
+        mid = (low + high)//2
+        if arr[mid] == item:
+            print("Element found at position:", mid + 1)
+            break
+        elif item > arr[mid]:
+            low = mid + 1
+        else:
+            high = mid
+    else:
+        print("Element not in array.")
+binary_search(array, elemnt)
