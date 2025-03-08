@@ -1,0 +1,74 @@
+import tkinter as tk
+from tkinter import *
+from tkinter import messagebox
+window = tk.Tk()
+window.title("Practical 6")
+window.geometry("400x500")
+
+def showinput():
+    user_input = text_box.get()
+    if user_input:
+            text_widget.insert(tk.END, f"You entered: {user_input}\n")
+    else: 
+          messagebox.showwarning("Input Error", "Please enter some text!")
+
+def clear_text():
+    text_widget.delete(1.0, tk.END)
+    
+def show_var():
+    selection = var.get()
+    label1.config(text=f"Selected option: {selection}")
+
+def on_button_toggle():
+    checklabel.config(text=f"Browsers:{checkbox1.get() + checkbox2.get() + checkbox3.get()}")
+
+label = tk.Label(window, text="Text Processing", font= 50)
+label.pack(pady=10)
+
+text_box = tk.Entry(window)
+text_box.pack(pady= 5)
+
+
+button = tk.Button(window, text= "Show Input", command= showinput)
+button.pack(pady= 5)
+
+text_widget = tk.Text(window, height=6, width=40)
+text_widget.pack()
+
+var = StringVar(window, "Hi")
+values = {
+    "Class 1": "1",
+    "Class 2": "2",
+    "Class 3": "3",
+    "Class 4": "4",
+    }
+for text,value in values.items():
+    Radiobutton(window, text= text, variable= var, value= value, 
+                command= show_var).pack(side= TOP,ipadx= 5)
+label1= tk.Label(window, text= "Selected option: ")
+label1.pack()
+
+checklabel = tk.Label(window, text= "Browsers: ")
+checklabel.pack()
+checkbox1 = IntVar()
+checkbox2 = IntVar()
+checkbox3 = IntVar()
+
+b1 = Checkbutton(window, text="Chrome", 
+                variable= checkbox1, onvalue= 1,
+                offvalue= 0, height= 2, width= 10,
+                command=on_button_toggle)
+b2 = Checkbutton(window, text="Edge", 
+                variable= checkbox2, onvalue= 1,
+                offvalue= 0, height= 2, width= 10, 
+                command=on_button_toggle)
+b3 = Checkbutton(window, text="Firefox", 
+                variable= checkbox3, onvalue= 1,
+                offvalue= 0, height= 2, width= 10,
+                command=on_button_toggle)
+b1.pack()
+b2.pack()
+b3.pack()
+
+window.mainloop()
+
