@@ -1,0 +1,26 @@
+import os
+
+file = open("text.txt", 'a+')
+file.seek(0)
+print("File:\n"+file.read())
+
+str = str(input("\nEnter your name: "))
+file.seek(0)
+file.write(str)
+
+file.seek(0)
+print("File:\n"+file.read())
+
+file.seek(0)
+print("\nNumber of lines: ", len(file.readlines()))
+
+file.seek(0)
+print("\nNumber of words: ", len(file.read().split()))
+
+file.seek(0)
+print("\nNumber of characters: ", len(file.read()))
+file.close()
+
+print("\nCurrent directory: ", os.getcwd())
+print("\nFile exists: ",os.path.exists(""))   #give the path in "" 
+print("\nFiles: ",os.listdir(""))  #give the path in ""
