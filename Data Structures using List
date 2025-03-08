@@ -1,0 +1,78 @@
+from collections import deque 
+print("1.Link List\n2.Stack\n3.Queue\n4.Exit")
+choice = int(input("Enter your choice: "))
+
+while choice != 4:
+    
+    if choice == 1:
+        print("-----Link List-----")
+        link_list = []
+        print("1.Push\n2.Pop\n3.Display\n4.Exit")
+        ch = int(input("Enter your choice: "))
+        while ch != 4:
+            if ch == 1:
+                inp = int(input("Enter element: "))
+                link_list.append(inp)
+            elif ch == 2:
+                print("Popped Element: ", link_list.pop())
+            elif ch == 3: 
+                print("Link List: ", end=" ")
+                for item in link_list:
+                    print(item, end="-> ")
+                print("None")
+            elif ch == 4:
+                pass
+            else:
+                print("Invalid Input!")
+            ch = int(input("Enter your choice: "))
+
+    elif choice == 2:
+        stack = []
+        print("-----Stack-----")
+        print("1.Push\n2.Pop\n3.Display\n4.Exit")
+        ch = int(input("Enter your choice: "))
+        while ch != 4:
+            if ch == 1:
+                inp = int(input("Enter element: "))
+                stack.append(inp)
+            elif ch == 2:
+                print("Popped element: ",stack.pop())
+            elif ch == 3:
+                print("Stack: ", stack)
+            elif ch == 4:
+                break
+            else: 
+                print("Invalid Input!")
+            ch = int(input("Enter your choice: "))
+        
+    elif choice == 3:
+        queue = deque()
+        print("-----Queue-----")
+        print("1.Push\n2.Pop\n3.Display\n4.Exit")
+        ch = int(input("Enter your choice: "))
+        
+        while ch != 4:
+            if ch == 1:
+                inp = int(input("Enter element: "))
+                queue.append(inp)
+            elif ch == 2: 
+                print("\nPopped element: ", queue.popleft())
+            elif ch == 3:
+                print("Queue:", end=" ")
+                for item in queue:
+                    print(item, end= " ")
+                print("\n")
+            elif ch == 4:
+                break
+            else:
+                print("Invalid Input!")
+            ch = int(input("Enter your choice: "))
+
+    elif choice == 4:
+        pass
+    
+    else:
+        print("Invalid Input!")
+    
+    print("1.Link List\n2.Stack\n3.Queue\n4.Exit")
+    choice = int(input("Enter your choice: "))
