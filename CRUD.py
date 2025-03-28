@@ -1,69 +1,65 @@
 import mysql.connector
+def display(table_name):
+        # Display
+    print("-----Table-----")
+    query = f"SELECT * FROM company.{table_name}"
+    cursor.execute(query)
+    for item in cursor.fetchall():
+        print(item)
+    else:
+        print("Empty")
 try:
+    connect = mysql.connector.connect(
+    host= "localhost", 
+    user= "root", 
+    password= "root", 
+    database="company")
 
-   connect=mysql.connector.connect(host="localhost",
-                                   user="root",
-                                   password="root",
-                                   database="demo1")
-   print("Connection Status:",connect.is_connected())
-   cursor=connect.cursor()
-   #create table command
-   # query="CREATE TABLE test(Name varchar(30),ID int, Phy int, Chem int, Math int, Status varchar(10))"
-   # cursor.execute(query)
-   # display()
+    print(connect.is_connected())
+    cursor = connect.cursor()
+    # # Create
+    print("-----Create-----")
+    table_name = str(input("Enter table name: "))
+    query = f"CREATE TABLE {table_name}(uid int PRIMARY KEY NOT NULL, uname varchar(20), age int, email_id varchar(50))"
+    cursor.execute(query)
+    display(table_name)
+    # # Insert
+    print("-----Insert-----")
+    query = "INSERT INTO users(uid, uname, age, email_id) VALUES (%s, %s, %s, %s)"
+    entries = int(input("Enter the number of entries: "))
+    for i in range (0, entries):    
+        values = [int, str, int, str]
+        print(f"Entry {i+1}:")
+        values[0] = input("Enter your User ID: ")
+        values[1] = input("Enter your Username: ")
+        values[2] = input("Enter your Age: ")
+        values[3] = input("Enter your Email ID: ")
 
-   def display():
-       print("table:\n")
-       query = "SELECT*FROM demo1.test"
-       cursor.execute(query)
-       for item in cursor.fetchall():
-           print(item)
-       connect.commit()
+        cursor.execute(query, values)
+    
+    # # Update
+    print("-----Update Age-----")
+    query = "UPDATE users SET age = %s WHERE uid = %s"
+    values = [int, int]
+    values[1] = input("Enter the UID for updation: ")
+    values[0] = input("Enter new Age: ")
+    cursor.execute(query, values)
 
-   def insert(name,id,phy,chem,math,stat):
-       query="INSERT INTO test(Name,Id,Phy,Chem,Math,Status) values(%s,%s,%s,%s,%s,%s)"
-       values=(name,id,phy,chem,math,stat)
-       cursor.execute(query,values)
-       connect.commit()
-       display()
-       connect.commit()
+    # # Delete
+    print("-----Delete-----")
+    query = "DELETE FROM users WHERE uid = %s"
+    value = [int]
+    value[0] = int(input("Enter the UID to be deleted: "))
+    cursor.execute(query, value)
 
-   def update(newstat,gid):
-       query=("UPDATE test SET Status=%s WHERE Id=%s")
-       values=(newstat,gid)
-       cursor.execute(query,values)
-       display()
-       connect.commit()
+    display(table_name)
+    
+    # # Drop
+    query = "DROP TABLE users;"
+    cursor.execute(query)
+    cursor.close()
 
-   def delete (id):
-       query=("DELETE FROM test WHERE Id=%s")
-       values=(id,)
-       cursor.execute(query,values)
-       display()
-       connect.commit()
-   choice=0
-   while choice!=5:
-       print("1.Insert\n2.Update\n3.Delete\n4.Display\n5.Exit")
-       choice=int(input("Enter the choice:"))
-       if choice==1:
-           name=input("enter name")
-           id=int(input("Enter the id:"))
-           phy=int(input("Enter physics marks:"))
-           chem=int(input("Enter chemistry marks:"))
-           math=int(input("Enter math marks:"))
-           stat=input("Enter status:")
-           insert(name,id,phy,chem,math,stat)
-       elif choice==2:
-           gid=int(input("Enter the rollnumber whose status needs to be updated\n"))
-           newstat=input("Enter the new status")
-           update(newstat,gid)
-       elif choice==3:
-           id=int(input("Enter the id number of the student to be deleted:"))
-           delete(id)
-       elif choice==4:
-           display()
-       else:
-           print("Invalid choice")
+    connect.commit()
 
-except mysql.connector.Error as er:
-   print("Error:",er)
+except mysql.connector.Error as err:
+    print("ERROR:",err)
