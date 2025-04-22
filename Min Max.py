@@ -7,7 +7,7 @@ def min_max(low, high):
         if list[low] < list[high]:
             return list[low], list[high]
         else:
-            return list[high], list[high]
+            return list[high], list[low]
     else:
         mid = int((low+high)/2)
         l_min, l_max = min_max(low, mid)
